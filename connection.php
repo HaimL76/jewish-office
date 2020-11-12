@@ -17,7 +17,11 @@
     // Create connection
 	function openConnection()
 	{
+		//echo("Before connection\n");
+
 		$conn = mysqli_connect(MYSQL_HOSTNAME, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE);
+
+		//echo("After connection\n");
 
 		mysqli_set_charset($conn,"utf8");
 
@@ -25,7 +29,10 @@
 
 		if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
-        }
+		}
+		
+		//echo(json_encode($conn));
+		//echo('\n');
 
         return $conn;
     }

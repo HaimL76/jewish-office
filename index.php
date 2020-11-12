@@ -7,7 +7,7 @@
     if ($conn == null)// || $conn.empty())
         die("Connection object is invalid");
 
-    echo json_encode($conn);
+    //echo json_encode($conn);
 
 //	$sql = "SELECT * FROM tabel_name WHERE userid='" . $user_id . "';";
 //	$result_get_user = $conn->query($sql);
