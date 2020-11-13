@@ -5,7 +5,22 @@
 </head>
 <script>
     $(document).ready(function() {
+        const queryString = window.location.search;
+        //console.log(queryString);
+        //alert(queryString);
+
+        const urlParams = new URLSearchParams(queryString);
+
+        const user_id = 'user_id';
+
+        const userid = urlParams.get(user_id);
+
+        //alert(userid);
+
         var endpoint = 'get_users.php';
+
+        if (userid)
+            endpoint += '?' + user_id + '=' + userid.toString();
 
         $.ajax({
             url: endpoint,
@@ -25,7 +40,7 @@
 
                             if ('first' in u && 'last' in u) {
                                 str += '<td>';
-                                str += '<a href=user-details.html?user_id=' + u.id.toString() + '>';
+                                str += '<a href=get_users.php?user_id=' + u.id.toString() + '>';
                                 str += u.first + ' ' + u.last;
                                 str += '</a></td>';
                             }

@@ -18,12 +18,12 @@
         
         if (isset($userid) && $userid != "") {
             //echo $userid;
-            $sql = $sql . "where userid='" . $userid . "'";
+            $sql = $sql . "where id=" . $userid;
         }
 
         $sql = $sql . ";";
 
-        //echo $sql . PHP_EOL;
+        error_log($sql . PHP_EOL);
 
         $result_get_user = $conn->query($sql);
 
