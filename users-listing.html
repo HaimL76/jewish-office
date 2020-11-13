@@ -14,6 +14,28 @@
             cache: false,
             success: function(result) {
                 console.log(result);
+
+                if (Array.isArray(result)) {
+                    result.forEach(u => {
+                        // Find a <table> element with id="myTable":
+                        if ('id' in u) {
+                            var str = '<tr>';
+
+                            //str += '<td>' + u.id + '</td>';
+
+                            if ('first' in u && 'last' in u) {
+                                str += '<td>';
+                                str += '<a href="get_users.php?user_id="' + u.id + '>';
+                                str += u.first + ' ' + u.last;
+                                str += '</a></td>';
+                            }
+
+                            str += '</tr>';
+
+                            $('#myTable tr:last').after(str);
+                        }
+                    });
+                };
             },
             error: function(data, err) {
                 console.log(err);
@@ -23,5 +45,13 @@
         });
     });
 </script>
+
+<body>
+    <table id="myTable">
+        <tr>
+            <td>AAA</td>
+        </tr>
+    </table>
+</body>
 
 </html>
