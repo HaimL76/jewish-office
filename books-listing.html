@@ -16,26 +16,17 @@
                 console.log(result);
 
                 if (Array.isArray(result)) {
-                    result.forEach(u => {
-                        // Find a <table> element with id="myTable":
-                        if ('id' in u) {
-                            var str = '<tr>';
-
-                            //str += '<td>' + u.id + '</td>';
-
-                            if ('first' in u && 'last' in u) {
-                                str += '<td>';
-                                str += '<a href=user-details.html?user_id=' + u.id.toString() + '>';
-                                str += u.first + ' ' + u.last;
-                                str += '</a></td>';
-                            }
-
-                            str += '</tr>';
+                    result.forEach(cat => {
+                        if ('ID' in cat && 'name' in cat) {
+                            str = '<tr><td>';
+                            str += '<a href=user-details.html?user_id=' + cat.ID.toString() + '>';
+                            str += cat.name;
+                            str += '</a></td></tr>';
 
                             $('#myTable tr:last').after(str);
                         }
                     });
-                };
+                }
             },
             error: function(data, err) {
                 console.log(err);
