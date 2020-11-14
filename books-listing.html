@@ -82,6 +82,55 @@
             //alert($sel.id);
             //https://jewishoffice.co.il/server/bookapi/?category=1&page=1&mode=name
         });
+
+        $('#books').change(function() {
+            var $sel = $('#books option:selected');
+
+            if ($sel) { //} && Array.isArray($sel)) {
+                var opt = $sel[0];
+
+                if ('id' in opt) {
+                    var id = opt.id;
+
+                    if (id > 0) {
+                        var endpoint = 'https://jewishoffice.co.il/server/bookapi/?book=' + id.toString();
+
+                        //window.location.replace('https://jewishoffice.co.il/server/bookapi/?category=' + id.toString() + '&page=1&mode=name');
+                        $.ajax({
+                            url: endpoint,
+                            contentType: "application/json",
+                            dataType: 'json',
+                            cache: false,
+                            success: function(result) {
+                                console.log(result);
+
+                                if ('books' in result) {
+                                    var books = result.books;
+
+                                    books.forEach(b => {
+                                        if ('id' in b && 'name' in b) {
+                                            str = '<option id=' + b.id.toString() + '>';
+                                            str += b.name;
+                                            str += '</a></option>';
+
+                                            $('#books option:last').after(str);
+                                        }
+                                    });
+                                }
+                            },
+                            error: function(data, err) {
+                                console.log(err);
+                                alert(JSON.stringify(data));
+                                alert(JSON.stringify(err));
+                            }
+                        });
+                    }
+                }
+            }
+            //&&  'id' in $sel)
+            //alert($sel.id);
+            //https://jewishoffice.co.il/server/bookapi/?category=1&page=1&mode=name
+        });
     });
 </script>
 
