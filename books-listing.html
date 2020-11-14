@@ -5,7 +5,7 @@
 </head>
 <script>
     $(document).ready(function() {
-        var endpoint = 'get_users.php';
+        var endpoint = 'https://jewishoffice.co.il/server/bookapi/?type=categories';
 
         $.ajax({
             url: endpoint,
@@ -18,7 +18,6 @@
                 if (Array.isArray(result)) {
                     result.forEach(u => {
                         // Find a <table> element with id="myTable":
-                        var aaa = 'https://jewishoffice.co.il/server/bookapi/?type=categories';
                         if ('id' in u) {
                             var str = '<tr>';
 
