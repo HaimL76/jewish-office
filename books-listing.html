@@ -18,12 +18,11 @@
                 if (Array.isArray(result)) {
                     result.forEach(cat => {
                         if ('ID' in cat && 'name' in cat) {
-                            str = '<tr><td>';
-                            str += '<a href=user-details.html?user_id=' + cat.ID.toString() + '>';
+                            str = '<option id=' + cat.ID.toString() + '>';
                             str += cat.name;
-                            str += '</a></td></tr>';
+                            str += '</a></option>';
 
-                            $('#myTable tr:last').after(str);
+                            $('#categories option:last').after(str);
                         }
                     });
                 }
@@ -34,15 +33,66 @@
                 alert(JSON.stringify(err));
             }
         });
+
+        $('#categories').change(function() {
+            var $sel = $('#categories option:selected');
+
+            if ($sel) { //} && Array.isArray($sel)) {
+                var opt = $sel[0];
+
+                if ('id' in opt) {
+                    var id = opt.id;
+
+                    if (id > 0) {
+                        var endpoint = 'https://jewishoffice.co.il/server/bookapi/?category=' + id.toString() + '&page=1&mode=name';
+
+                        //window.location.replace('https://jewishoffice.co.il/server/bookapi/?category=' + id.toString() + '&page=1&mode=name');
+                        $.ajax({
+                            url: endpoint,
+                            contentType: "application/json",
+                            dataType: 'json',
+                            cache: false,
+                            success: function(result) {
+                                console.log(result);
+
+                                if ('books' in result) {
+                                    var books = result.books;
+
+                                    books.forEach(b => {
+                                        if ('id' in b && 'name' in b) {
+                                            str = '<option id=' + b.id.toString() + '>';
+                                            str += b.name;
+                                            str += '</a></option>';
+
+                                            $('#books option:last').after(str);
+                                        }
+                                    });
+                                }
+                            },
+                            error: function(data, err) {
+                                console.log(err);
+                                alert(JSON.stringify(data));
+                                alert(JSON.stringify(err));
+                            }
+                        });
+                    }
+                }
+            }
+            //&&  'id' in $sel)
+            //alert($sel.id);
+            //https://jewishoffice.co.il/server/bookapi/?category=1&page=1&mode=name
+        });
     });
 </script>
 
 <body>
-    <table id="myTable">
-        <tr>
-            <td></td>
-        </tr>
-    </table>
+    <select id="categories" dir="rtl">
+        <option>None</option>
+    </select>
+    <br>
+    <select id="books" dir="rtl">
+        <option>None</option>
+    </select>
 </body>
 
 </html>
