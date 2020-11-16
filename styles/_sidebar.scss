@@ -1,0 +1,70 @@
+.side-bar {
+    padding-right: 20px;
+    max-width: 360px;
+    font-size: rem(18px);
+    .new-books {
+        background-color: $clr1;
+        border-radius: 6px;
+        border: 3px $clr5 solid;
+        padding: 10px;
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 26px;
+        }
+        > * > * {
+            margin-bottom: 15px;
+        }
+    }
+}
+.random-ask {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rem(15px);
+}
+.ask-book form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: rem(15px);
+}
+.thanks {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: rem(15px);
+}
+.random-and-ask {
+    margin: 0 rem(22px);
+    button {
+        color: $clr1;
+        background-color: $clr2;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: rem(22px);
+        height: rem(50px);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        &:hover {
+            cursor: pointer;
+            border-radius: 6px;
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.6), 0 2px 2px 0 rgba(0, 0, 0, 0.42),
+                0 1px 5px 0 rgba(0, 0, 0, 0.36);
+        }
+    }
+    input {
+        width: 186px;
+        padding: 10px;
+        font-size: rem(18px);
+        height: rem(52px);
+        background-color: $clr1;
+        border: none;
+        border-radius: 6px;
+        border: 3px $clr5 solid;
+        &:focus{
+        border: 3px $clr5 solid;
+        background-color: $clr1;
+        }
+    }
+    .red{
+        border: 3px #f00 solid;
+    }
+}

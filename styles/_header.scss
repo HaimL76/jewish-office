@@ -1,0 +1,69 @@
+.header-continer{
+display: flex;
+    .header {
+        display: flex;
+        padding-bottom: 10px;
+        .find-header {
+            flex-grow: 4;
+            display: flex;
+            .back-img {
+                width: 50px;
+                transform: scaleX(-1);
+            }
+            .find {
+                input {
+                    padding: 10px;
+                    height: 58px;
+                    width: 350px;
+                    font-size: rem(22px);
+                    background-color: $clr1;
+                    border: none;
+                    border-radius: 6px;
+                    border: 3px $clr5 solid;
+                }
+            }
+        }
+    }
+    .menu {
+        padding-right: 20px;
+        padding-left: 20px;
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: rem(15px);
+            .radio-button {
+                position: relative;
+                display: inline-block;
+                margin-right: 5px;
+                input {
+                    margin: 0;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    position: absolute;
+                    cursor: pointer;
+                }
+                .item {
+                    height: rem(36px);
+                    width: rem(80px);
+                    padding: rem(10px);
+                    text-align: center;
+                }
+                &:hover {
+                    cursor: pointer;
+                    border-radius: 6px;
+                    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.6), 0 2px 2px 0 rgba(0, 0, 0, 0.42),
+                        0 1px 5px 0 rgba(0, 0, 0, 0.36);
+                }
+            }
+            .active {
+                text-align: center;
+                background-color: $clr1;
+                // color: $clr1;
+                box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+                border-radius: 6px;
+            }        
+        }
+    }
+    
+}

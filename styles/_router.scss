@@ -1,0 +1,22 @@
+.router {
+    display: grid;
+    grid-template-rows: 80px 1fr;
+    grid-template-columns: 1fr 400px;
+    @media (max-width: 1050px) {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 1050px) {
+    .App{
+        padding: 15px;
+    }
+    .random-and-ask,
+    .side-bar {
+        visibility: collapse;
+        height: 0;
+    }
+    .home {
+        max-width: 95vw;
+        margin-right: 0;
+    }
+}

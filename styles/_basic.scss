@@ -1,0 +1,35 @@
+.App {
+    font-size: rem(22px);
+    direction: rtl;
+    padding: 20px 50px;
+    background-color: #fff;
+    input {
+        box-sizing: border-box;
+    }
+    a {
+        color: $clr3;
+        text-decoration: none;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 700;
+    }
+    .route-continer {
+        position: relative;
+        min-height: calc(100vh - 80px);
+        .loading {
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+}
