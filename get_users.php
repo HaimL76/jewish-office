@@ -34,4 +34,5 @@
 
         echo json_encode($data_get_user);
         //echo "Hello, World!";// $data_get_user;
+        $conn->close();
 ?>

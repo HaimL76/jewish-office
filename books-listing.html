@@ -1,7 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="he">
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="index.css">
 </head>
 <script>
     $(document).ready(function() {
@@ -132,6 +135,30 @@
             //https://jewishoffice.co.il/server/bookapi/?category=1&page=1&mode=name
         });
     });
+
+    function addBook() {
+        var endpoint = 'post_book.php';
+
+        $.ajax({
+            type: "POST",
+            url: endpoint,
+            contentType: "application/json",
+            dataType: 'json',
+            cache: false,
+            data: {
+                sys_id: 111,
+                name: '111'
+            },
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(data, err) {
+                console.log(err);
+                alert(JSON.stringify(data));
+                alert(JSON.stringify(err));
+            }
+        });
+    }
 </script>
 
 <body>
@@ -142,6 +169,10 @@
     <select id="books" dir="rtl">
         <option>None</option>
     </select>
+    <br>
+    <button class="btn-div" type="button" id="btnAddBook" onclick="return addBook();">
+        הוסף ספר
+        </button>
 </body>
 
 </html>
