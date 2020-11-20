@@ -139,37 +139,44 @@
     function addBook() {
         var sysid;
         var bname;
+        var bunits;
 
-        var $sel = $('#books option:selected');
+        var opt = $('#books option:selected')[0];
 
-        if ($sel) {
-            var opt = $sel[0];
+        if ('id' in opt) {
+            var id = opt.id;
 
-            if ('id' in opt) {
-                var id = opt.id;
-
-                if (id > 0)
-                    sysid = opt.id;
-            }
+            if (id > 0)
+                sysid = opt.id;
 
             if ('innerText' in opt)
                 bname = opt.innerText;
+
+            buints = $('#txtUnits').val();
+
+            if (!buints) {
+                var txt = $('#txtUnits')[0];
+
+                if ('placeholder' in txt)
+                    buints = txt.placeholder;
+            }
         }
 
-        if (sysid && bname) {
+        if (sysid && bname && buints > 0) {
             var endpoint = 'post_book.php';
 
             var jqxhr = $.post(endpoint, {
                     sys_id: sysid,
-                    name: bname
+                    name: bname,
+                    unites: bunits
                 }, function() {
                     alert("success");
                 })
                 .done(function() {
                     alert("second success");
                 })
-                .fail(function() {
-                    alert("error");
+                .fail(function(err) {
+                    alert(JSON.stringify(err));
                 })
                 .always(function() {
                     alert("finished");
@@ -216,6 +223,9 @@
         <option>None</option>
     </select>
     <br>
+    <input type="number" id="txtUnits" required placeholder="1" min="1" pattern="\d*">
+    </input>
+    </br>
     <button class="btn-div" type="button" id="btnAddBook" onclick="return addBook();">
         הוסף ספר
         </button>
