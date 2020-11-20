@@ -137,7 +137,54 @@
     });
 
     function addBook() {
-        var endpoint = 'post_book.php';
+        var sysid;
+        var bname;
+
+        var $sel = $('#books option:selected');
+
+        if ($sel) {
+            var opt = $sel[0];
+
+            if ('id' in opt) {
+                var id = opt.id;
+
+                if (id > 0)
+                    sysid = opt.id;
+            }
+
+            if ('innerText' in opt)
+                bname = opt.innerText;
+        }
+
+        if (sysid && bname) {
+            var endpoint = 'post_book.php';
+
+            var jqxhr = $.post(endpoint, {
+                    sys_id: sysid,
+                    name: bname
+                }, function() {
+                    alert("success");
+                })
+                .done(function() {
+                    //alert("second success");
+                })
+                .fail(function(err) {
+                    //alert("error");
+                    alert(JSON.stringify(err));
+                })
+                .always(function() {
+                    //alert("finished");
+                })
+        }
+
+        // Perform other work here ...
+
+        // Set another completion function for the request above
+        jqxhr.always(function() {
+            //alert("second finished");
+        });
+
+        return;
 
         $.ajax({
             type: "POST",
