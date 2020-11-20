@@ -152,23 +152,23 @@
             if ('innerText' in opt)
                 bname = opt.innerText;
 
-            buints = $('#txtUnits').val();
+            bunits = $('#txtUnits').val();
 
-            if (!buints) {
+            if (!bunits) {
                 var txt = $('#txtUnits')[0];
 
                 if ('placeholder' in txt)
-                    buints = txt.placeholder;
+                    bunits = txt.placeholder;
             }
         }
 
-        if (sysid && bname && buints > 0) {
+        if (sysid && bname && bunits > 0) {
             var endpoint = 'post_book.php';
 
             var jqxhr = $.post(endpoint, {
                     sys_id: sysid,
                     name: bname,
-                    unites: bunits
+                    units: bunits
                 }, function() {
                     alert("success");
                 })
