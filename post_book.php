@@ -34,15 +34,14 @@
   
           $sql = "insert into ta_book (sys_id, name) values ({$sysid}, '{$bname}')";
           
-          echo $sql;
+          //echo $sql;
 
           //error_log($sql . PHP_EOL);
   
           $result = $conn->query($sql);
   
-          echo $result;
-          
-          echo "res: {$result} ult";
+          if (!$result)
+            echo $conn->error;
   
           $conn->close();
       }

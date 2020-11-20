@@ -25,6 +25,8 @@
 
 		mysqli_set_charset($conn,"utf8");
 
+		mysqli_error($conn);
+
 		// Check connection
 
 		if (!$conn) {
