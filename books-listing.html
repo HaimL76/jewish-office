@@ -166,15 +166,14 @@
                     alert("success");
                 })
                 .done(function() {
-                    //alert("second success");
+                    alert("second success");
                 })
-                .fail(function(err) {
-                    //alert("error");
-                    alert(JSON.stringify(err));
+                .fail(function() {
+                    alert("error");
                 })
                 .always(function() {
-                    //alert("finished");
-                })
+                    alert("finished");
+                });
         }
 
         // Perform other work here ...
