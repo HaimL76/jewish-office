@@ -3,6 +3,12 @@
     padding-right: 25px;
 }
 
+.div-int-books,
+.div-ext-books {
+    padding-right: 25px;
+    margin-right: 25px;
+}
+
 input,
 select {
     width: 100px;
