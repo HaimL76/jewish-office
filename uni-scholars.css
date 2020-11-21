@@ -1,3 +1,9 @@
 .uni-scholars-header {
     background-color: aqua;
+    padding-right: 25px;
+}
+
+input,
+select {
+    width: 100px;
 }

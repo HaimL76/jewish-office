@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tora</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="uni-scholars.css">
+    <link rel="stylesheet" href="index.css?rnd=100">
+    <link rel="stylesheet" href="uni-scholars.css?rnd=100">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <script>
     $(document).ready(function() {
+        $('.div-int-books').show();
+        $('.div-ext-books').hide();
+
         var endpoint = 'https://jewishoffice.co.il/server/bookapi/?type=categories';
 
         $.ajax({
@@ -52,8 +55,6 @@
 
                     if (id > 0) {
                         var endpoint = 'https://jewishoffice.co.il/server/bookapi/?category=' + id.toString() + '&page=1&mode=name';
-
-                        //window.location.replace('https://jewishoffice.co.il/server/bookapi/?category=' + id.toString() + '&page=1&mode=name');
                         $.ajax({
                             url: endpoint,
                             contentType: "application/json",
@@ -134,11 +135,13 @@
                     }
                 }
             }
-            //&&  'id' in $sel)
-            //alert($sel.id);
-            //https://jewishoffice.co.il/server/bookapi/?category=1&page=1&mode=name
         });
     });
+
+    function searchBook() {
+        $('.div-int-books').hide();
+        $('.div-ext-books').show();
+    }
 
     function addBook() {
         var sysid;
@@ -190,15 +193,6 @@
                     alert("finished");
                 });
         }
-
-        // Perform other work here ...
-
-        // Set another completion function for the request above
-        jqxhr.always(function() {
-            //alert("second finished");
-        });
-
-        return;
     }
 </script>
 
@@ -208,23 +202,42 @@
             <h1>איגוד לומדים עצמאיים</h1>
         </div>
     </header>
-    <select id="categories" dir="rtl">
-            <option>None</option>
+    <div class="div-int-books">
+        <select id="int-categories" dir="rtl">
+            <option>בחר קטגוריה</option>
         </select>
-    <br>
-    <select id="books" dir="rtl">
-            <option>None</option>
+        <br>
+        <select id="int-books" dir="rtl">
+            <option>בחר ספר</option>
         </select>
-    <br>
-    <input type="number" id="txtUnits" required placeholder="1" min="1" pattern="\d*">
-    </input>
-    </br>
-    <input type="text" id="txtDescription" required placeholder="פרטי ספר">
-    </input>
-    </br>
-    <button class="btn-div" type="button" id="btnAddBook" onclick="return addBook();">
+        </br>
+        <button class="btn-div" type="button" id="intbtnAddBook" onclick="return intaddBook();">
             הוסף ספר
         </button>
+        <button class="btn-div" type="button" id="btnSearchBook" onclick="return searchBook();">
+            חפש ספר
+        </button>
+    </div>
+    <div class="div-ext-books">
+        <h2>בחר ספר ממאגר האופיס היהודי</h2>
+        <select id="categories" dir="rtl">
+            <option>בחר קטגוריה</option>
+        </select>
+        <br>
+        <select id="books" dir="rtl">
+            <option>בחר ספר</option>
+        </select>
+        <br>
+        <input type="number" id="txtUnits" required placeholder="1" min="1" pattern="\d*">
+        </input>
+        </br>
+        <input type="text" id="txtDescription" placeholder="פרטי ספר">
+        </input>
+        </br>
+        <button class="btn-div" type="button" id="btnAddBook" onclick="return addBook();">
+            הוסף ספר
+        </button>
+    </div>
 </body>
 
 </html>
