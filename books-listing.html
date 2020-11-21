@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" style="direction: rtl;">
+<html lang="en" style="direction: rtl;">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tora</title>
-    <link rel="stylesheet" href="index.css?rnd=100">
-    <link rel="stylesheet" href="uni-scholars.css?rnd=100">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="uni-scholars.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -14,35 +14,6 @@
     $(document).ready(function() {
         $('.div-int-books').show();
         $('.div-ext-books').hide();
-
-        var endpoint = 'https://jewishoffice.co.il/server/bookapi/?type=categories';
-
-        $.ajax({
-            url: endpoint,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            success: function(result) {
-                console.log(result);
-
-                if (Array.isArray(result)) {
-                    result.forEach(cat => {
-                        if ('ID' in cat && 'name' in cat) {
-                            str = '<option id=' + cat.ID.toString() + '>';
-                            str += cat.name;
-                            str += '</a></option>';
-
-                            $('#categories option:last').after(str);
-                        }
-                    });
-                }
-            },
-            error: function(data, err) {
-                console.log(err);
-                alert(JSON.stringify(data));
-                alert(JSON.stringify(err));
-            }
-        });
 
         $('#categories').change(function() {
             var $sel = $('#categories option:selected');
@@ -138,9 +109,80 @@
         });
     });
 
+    function intGetBooks() {
+        var endpoint = 'https://jewishoffice.co.il/server/bookapi/?type=categories';
+
+        $.ajax({
+            url: endpoint,
+            contentType: "application/json",
+            dataType: 'json',
+            cache: false,
+            success: function(result) {
+                console.log(result);
+
+                if (Array.isArray(result)) {
+                    result.forEach(cat => {
+                        if ('ID' in cat && 'name' in cat) {
+                            str = '<option id=' + cat.ID.toString() + '>';
+                            str += cat.name;
+                            str += '</a></option>';
+
+                            $('#categories option:last').after(str);
+                        }
+                    });
+                }
+            },
+            error: function(data, err) {
+                console.log(err);
+                alert(JSON.stringify(data));
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function extGetBooks() {
+        var endpoint = 'https://jewishoffice.co.il/server/bookapi/?type=categories';
+
+        $.ajax({
+            url: endpoint,
+            contentType: "application/json",
+            dataType: 'json',
+            cache: false,
+            success: function(result) {
+                console.log(result);
+
+                if (Array.isArray(result)) {
+                    result.forEach(cat => {
+                        if ('ID' in cat && 'name' in cat) {
+                            str = '<option id=' + cat.ID.toString() + '>';
+                            str += cat.name;
+                            str += '</a></option>';
+
+                            $('#categories option:last').after(str);
+                        }
+                    });
+                }
+            },
+            error: function(data, err) {
+                console.log(err);
+                alert(JSON.stringify(data));
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function initBook() {
+        $('.div-int-books').show();
+        $('.div-ext-books').hide();
+
+        intGetBooks();
+    }
+
     function searchBook() {
         $('.div-int-books').hide();
         $('.div-ext-books').show();
+
+        extGetBooks();
     }
 
     function addBook() {
@@ -181,16 +223,17 @@
                     units: bunits,
                     desc: bdesc
                 }, function() {
-                    alert("success");
+                    //alert("success");
                 })
                 .done(function() {
-                    alert("second success");
+                    //alert("second success");
                 })
                 .fail(function(err) {
-                    alert(JSON.stringify(err));
+                    //alert(JSON.stringify(err));
                 })
                 .always(function() {
-                    alert("finished");
+                    //alert("finished");
+                    initBook();
                 });
         }
     }
@@ -203,6 +246,7 @@
         </div>
     </header>
     <div class="div-int-books">
+        <h2>בחר ספר ממאגר הספרים</h2>
         <select id="int-categories" dir="rtl">
             <option>בחר קטגוריה</option>
         </select>
