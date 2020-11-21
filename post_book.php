@@ -21,6 +21,7 @@
       $sysid = $_POST["sys_id"];//$sys_id];
       $bname = $_POST["name"];//$name];
       $bunits = $_POST["units"];//$name];
+      $bdesc = $_POST["desc"];//$name];
 
       //echo $sysid;
       //echo $name;
@@ -33,7 +34,7 @@
   
           //echo json_encode($conn);
   
-          $sql = "insert into ta_book (sys_id, name, units) values ({$sysid}, '{$bname}', {$bunits})";
+          $sql = "insert into ta_book (sys_id, name, units, description) values ({$sysid}, '{$bname}', {$bunits}, '{$bdesc}')";
           
           //echo $sql;
 

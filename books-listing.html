@@ -140,6 +140,7 @@
         var sysid;
         var bname;
         var bunits;
+        var bdesc;
 
         var opt = $('#books option:selected')[0];
 
@@ -159,6 +160,8 @@
 
                 if ('placeholder' in txt)
                     bunits = txt.placeholder;
+
+                bdesc = $('#txtDescription').val();
             }
         }
 
@@ -168,7 +171,8 @@
             var jqxhr = $.post(endpoint, {
                     sys_id: sysid,
                     name: bname,
-                    units: bunits
+                    units: bunits,
+                    desc: bdesc
                 }, function() {
                     alert("success");
                 })
@@ -191,26 +195,6 @@
         });
 
         return;
-
-        $.ajax({
-            type: "POST",
-            url: endpoint,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            data: {
-                sys_id: 111,
-                name: '111'
-            },
-            success: function(result) {
-                console.log(result);
-            },
-            error: function(data, err) {
-                console.log(err);
-                alert(JSON.stringify(data));
-                alert(JSON.stringify(err));
-            }
-        });
     }
 </script>
 
@@ -226,9 +210,12 @@
     <input type="number" id="txtUnits" required placeholder="1" min="1" pattern="\d*">
     </input>
     </br>
+    <input type="text" id="txtDescription" required placeholder="פרטי ספר">
+    </input>
+    </br>
     <button class="btn-div" type="button" id="btnAddBook" onclick="return addBook();">
         הוסף ספר
-        </button>
+    </button>
 </body>
 
 </html>
