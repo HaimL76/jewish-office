@@ -22,11 +22,12 @@
       $bname = $_POST["name"];//$name];
       $bunits = $_POST["units"];//$name];
       $bdesc = $_POST["desc"];//$name];
+      $catid = $_POST["cat"];//$name];
 
       //echo $sysid;
       //echo $name;
   
-      if (isset ($sysid) && $sysid > 0 && isset($bname) && $bname != '' && isset($bunits) && $bunits != '') {
+      if (isset ($catid) && $catid > 0 && isset ($sysid) && $sysid > 0 && isset($bname) && $bname != '' && isset($bunits) && $bunits != '') {
           $conn = openConnection();
           
           if ($conn == null)// || $conn.empty())
@@ -34,7 +35,7 @@
   
           //echo json_encode($conn);
   
-          $sql = "insert into ta_book (sys_id, name, units, description) values ({$sysid}, '{$bname}', {$bunits}, '{$bdesc}')";
+          $sql = "insert into ta_book (sys_id, name, units, description, category) values ({$sysid}, '{$bname}', {$bunits}, '{$bdesc}', {$catid})";
           
           //echo $sql;
 

@@ -12,8 +12,7 @@
 </head>
 <script>
     $(document).ready(function() {
-        $('.div-int-books').show();
-        $('.div-ext-books').hide();
+        initBook();
 
         $('#categories').change(function() {
             var $sel = $('#categories option:selected');
@@ -110,7 +109,7 @@
     });
 
     function intGetBooks() {
-        var endpoint = 'https://jewishoffice.co.il/server/bookapi/?type=categories';
+        var endpoint = 'get_books.php';
 
         $.ajax({
             url: endpoint,
@@ -121,13 +120,13 @@
                 console.log(result);
 
                 if (Array.isArray(result)) {
-                    result.forEach(cat => {
-                        if ('ID' in cat && 'name' in cat) {
-                            str = '<option id=' + cat.ID.toString() + '>';
-                            str += cat.name;
+                    result.forEach(book => {
+                        if ('id' in book && 'category' in book && 'name' in book) {
+                            str = '<option id=' + book.id.toString() + '>';
+                            str += book.name;
                             str += '</a></option>';
 
-                            $('#categories option:last').after(str);
+                            $('#int-books option:last').after(str);
                         }
                     });
                 }
@@ -186,42 +185,45 @@
     }
 
     function addBook() {
-        var sysid;
         var bname;
         var bunits;
         var bdesc;
+        var catid;
+        var bookid;
 
-        var opt = $('#books option:selected')[0];
+        var optCat = $('#categories option:selected')[0];
+        var optBook = $('#books option:selected')[0];
 
-        if ('id' in opt) {
-            var id = opt.id;
+        if ('id' in optCat && 'id' in optBook) {
+            catid = optCat.id;
+            bookid = optBook.id;
 
-            if (id > 0)
-                sysid = opt.id;
+            if (catid > 0 && bookid > 0) {
+                if ('innerText' in optBook)
+                    bname = optBook.innerText;
 
-            if ('innerText' in opt)
-                bname = opt.innerText;
+                bunits = $('#txtUnits').val();
 
-            bunits = $('#txtUnits').val();
+                if (!bunits) {
+                    var txt = $('#txtUnits')[0];
 
-            if (!bunits) {
-                var txt = $('#txtUnits')[0];
+                    if ('placeholder' in txt)
+                        bunits = txt.placeholder;
 
-                if ('placeholder' in txt)
-                    bunits = txt.placeholder;
-
-                bdesc = $('#txtDescription').val();
+                    bdesc = $('#txtDescription').val();
+                }
             }
         }
 
-        if (sysid && bname && bunits > 0) {
+        if (catid > 0 && bookid > 0 && bname && bunits > 0) {
             var endpoint = 'post_book.php';
 
             var jqxhr = $.post(endpoint, {
-                    sys_id: sysid,
+                    sys_id: bookid,
                     name: bname,
                     units: bunits,
-                    desc: bdesc
+                    desc: bdesc,
+                    cat: catid
                 }, function() {
                     //alert("success");
                 })
