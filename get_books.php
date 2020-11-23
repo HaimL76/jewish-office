@@ -4,8 +4,10 @@
     header("Content-Type:application/json");
 
     $book_id = 'book_id';
+    $uid = 'uid';
 
     $bookid = $_GET[$book_id];
+    $userid = $_GET[$uid];
 
         $conn = openConnection();
         
@@ -14,11 +16,17 @@
 
         //echo json_encode($conn);
 
-        $sql = "select * from ta_book ";
+        $sql = "select * from ta_book order by name";
         
         if (isset($bookid) && $bookid != "") {
             //echo $bookid;
             $sql = $sql . "where id=" . $bookid;
+        }
+
+        if (isset($userid) && $userid > 0) {
+            //echo $bookid;
+            $sql = "select * from ta_book inner join ta_user_book on ta_user.id = ta_user_book.uid ";
+            $sql = $sql . " where ta_user.id = " . $userid;
         }
 
         $sql = $sql . ";";

@@ -56,9 +56,6 @@
                     }
                 }
             }
-            //&&  'id' in $sel)
-            //alert($sel.id);
-            //https://jewishoffice.co.il/server/bookapi/?category=1&page=1&mode=name
         });
 
         $('#books').change(function() {
@@ -109,7 +106,37 @@
     });
 
     function intGetBooks() {
-        var endpoint = 'get_books.php';
+        var endpoint = 'get_books.php?uid=1';
+
+        $.ajax({
+            url: endpoint,
+            contentType: "application/json",
+            dataType: 'json',
+            cache: false,
+            success: function(result) {
+                console.log(result);
+
+                if (Array.isArray(result)) {
+                    result.forEach(book => {
+                        if ('id' in book && 'category' in book && 'name' in book) {
+                            str = '<tr>';
+                            str += '<td>' + book.name + '</td>';
+                            //str += '</a></option>';
+                            str += '</tr>';
+
+                            $('.div-int-books table tr:last').after(str);
+                        }
+                    });
+                }
+            },
+            error: function(data, err) {
+                console.log(err);
+                //alert(JSON.stringify(data));
+                //alert(JSON.stringify(err));
+            }
+        });
+
+        endpoint = 'get_books.php';
 
         $.ajax({
             url: endpoint,
@@ -133,8 +160,8 @@
             },
             error: function(data, err) {
                 console.log(err);
-                alert(JSON.stringify(data));
-                alert(JSON.stringify(err));
+                //alert(JSON.stringify(data));
+                //alert(JSON.stringify(err));
             }
         });
     }
@@ -174,6 +201,8 @@
         $('.div-int-books').show();
         $('.div-ext-books').hide();
 
+        //$('.div-int-books').val("<option>בחר ספר</option>");
+
         intGetBooks();
     }
 
@@ -182,6 +211,39 @@
         $('.div-ext-books').show();
 
         extGetBooks();
+    }
+
+    function intaddBook() {
+        var achievements;
+        var bookid;
+
+        var optBook = $('#int-books option:selected')[0];
+
+        if ('id' in optBook) {
+            bookid = optBook.id;
+
+            if (bookid > 0) {
+                var endpoint = 'post_user_book.php';
+
+                var jqxhr = $.post(endpoint, {
+                        uid: 1, //userid,
+                        bid: bookid
+                    }, function() {
+                        //alert("success");
+                    })
+                    .done(function() {
+                        //alert("second success");
+                    })
+                    .fail(function(err) {
+                        //alert(JSON.stringify(err));
+                    })
+                    .always(function() {
+                        //alert("finished");
+                        //initBook();
+                        location.reload();
+                    });
+            }
+        }
     }
 
     function addBook() {
@@ -235,7 +297,8 @@
                 })
                 .always(function() {
                     //alert("finished");
-                    initBook();
+                    //initBook();
+                    location.reload();
                 });
         }
     }
@@ -248,17 +311,24 @@
         </div>
     </header>
     <div class="div-int-books">
+        <table>
+
+        </table>
         <h2>בחר ספר ממאגר הספרים</h2>
+        <!--
         <select id="int-categories" dir="rtl">
             <option>בחר קטגוריה</option>
         </select>
-        <br>
+        <br>-->
         <select id="int-books" dir="rtl">
             <option>בחר ספר</option>
         </select>
         </br>
+        <input type="number" id="txtAchievments" required placeholder="1" min="1" pattern="\d*">
+        </input>
+        </br>
         <button class="btn-div" type="button" id="intbtnAddBook" onclick="return intaddBook();">
-            הוסף ספר
+            הוסף לרשימתך
         </button>
         <button class="btn-div" type="button" id="btnSearchBook" onclick="return searchBook();">
             חפש ספר
