@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="he" style="direction: rtl;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tora</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="uni-scholars.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {});
+
+        function login() {
+            var username = $('#txtUsername').val();
+            var password = $('#txtPassword').val();
+
+            if (username && password) {
+                var endpoint = 'post_user_book.php';
+
+                var jqxhr = $.post(endpoint, {
+                        uid: 1, //userid,
+                        bid: bookid
+                    }, function() {
+                        //alert("success");
+                    })
+                    .done(function() {
+                        //alert("second success");
+                    })
+                    .fail(function(err) {
+                        //alert(JSON.stringify(err));
+                    })
+                    .always(function() {
+                        //alert("finished");
+                        //initBook();
+                        location.reload();
+                    });
+            }
+        }
+    </script>
+</head>
+<header id="masthead" class="site-header grid-container grid-parent" itemtype="https://schema.org/WPHeader" itemscope="">
+    <div class="inside-header grid-container grid-parent uni-scholars-header">
+        <h1>איגוד לומדים עצמאיים</h1>
+    </div>
+</header>
+
+<body>
+    <input type="text" id="txtUsername" placeholder="שם משתמש">
+    </input>
+    </br>
+    <input type="text" id="txtPassword" placeholder="סיסמה">
+    </input>
+    </br>
+    <button class="btn-div" type="button" id="btnAddBook" onclick="return login();">
+        כניסה למערכת
+    </button>
+    <br>
+    <a href=users-listing.html>לרשימת משתמשים לחץ כאן</a><br>
+    <a href=books-listing.html>לרשימת ספרים לחץ כאן</a>
+</body>
+
+</html>
