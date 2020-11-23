@@ -27,12 +27,15 @@
 
         $result_get_user = $conn->query($sql);
 
-        while ($row = $result_get_user->fetch_assoc()) {
-            //echo json_encode($row) . PHP_EOL;
-            $data_get_user[] = $row;
+        if ($result_get_user) {
+            while ($row = $result_get_user->fetch_assoc()) {
+                //echo json_encode($row) . PHP_EOL;
+                $data_get_user[] = $row;
+            }
+
+            echo json_encode($data_get_user);
         }
 
-        echo json_encode($data_get_user);
         //echo "Hello, World!";// $data_get_user;
         $conn->close();
 ?>

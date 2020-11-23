@@ -25,8 +25,8 @@
 
         if (isset($userid) && $userid > 0) {
             //echo $bookid;
-            $sql = "select * from ta_book inner join ta_user_book on ta_user.id = ta_user_book.uid ";
-            $sql = $sql . " where ta_user.id = " . $userid;
+            $sql = "select * from ta_book inner join ta_user_book on ta_book.id = ta_user_book.bid ";
+            $sql = $sql . " where ta_user_book.uid = " . $userid;
         }
 
         $sql = $sql . ";";
@@ -35,12 +35,15 @@
 
         $result_get_book = $conn->query($sql);
 
-        while ($row = $result_get_book->fetch_assoc()) {
+        if ($result_get_book) {
+            while ($row = $result_get_book->fetch_assoc()) {
             //echo json_encode($row) . PHP_EOL;
-            $data_get_book[] = $row;
+                $data_get_book[] = $row;
+            }
+
+            echo json_encode($data_get_book);
         }
 
-        echo json_encode($data_get_book);
         //echo "Hello, World!";// $data_get_book;
         $conn->close();
 ?>
