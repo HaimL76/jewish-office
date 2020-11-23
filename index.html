@@ -9,38 +9,37 @@
     <link rel="stylesheet" href="uni-scholars.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function() {});
-
-        function login() {
-            var username = $('#txtUsername').val();
-            var password = $('#txtPassword').val();
-
-            if (username && password) {
-                var endpoint = 'post_user_book.php';
-
-                var jqxhr = $.post(endpoint, {
-                        uid: 1, //userid,
-                        bid: bookid
-                    }, function() {
-                        //alert("success");
-                    })
-                    .done(function() {
-                        //alert("second success");
-                    })
-                    .fail(function(err) {
-                        //alert(JSON.stringify(err));
-                    })
-                    .always(function() {
-                        //alert("finished");
-                        //initBook();
-                        location.reload();
-                    });
-            }
-        }
-    </script>
 </head>
+<script>
+    $(document).ready(function() {});
+
+    function login() {
+        var username = $('#txtUsername').val();
+        var password = $('#txtPassword').val();
+
+        if (username && password) {
+            var endpoint = 'post_login.php';
+
+            var jqxhr = $.post(endpoint, {
+                    usr: username,
+                    pwd: password, //bookid
+                }, function() {
+                    //alert("success");
+                })
+                .done(function() {
+                    //alert("second success");
+                })
+                .fail(function(err) {
+                    //alert(JSON.stringify(err));
+                })
+                .always(function() {
+                    //alert("finished");
+                    //initBook();
+                    location.reload();
+                });
+        }
+    }
+</script>
 <header id="masthead" class="site-header grid-container grid-parent" itemtype="https://schema.org/WPHeader" itemscope="">
     <div class="inside-header grid-container grid-parent uni-scholars-header">
         <h1>איגוד לומדים עצמאיים</h1>

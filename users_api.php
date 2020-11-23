@@ -60,6 +60,8 @@ include '../qa-api/include/log-off.php';//
 	//	Sample Output
 	//	{"responseHeader":{"serviceId":"111","status":"200"}}
 
+	$interactionCode = 'CREAETEUSER';
+
 switch ($interactionCode) {
 	case 'LOGOFF':
 		LogOff($json_request);
@@ -77,6 +79,15 @@ switch ($interactionCode) {
 		ReadSessionCode($json_request);
 		break;
 	case 'CREAETEUSER':
+		
+			// { "requestHeader": { "serviceId":"111", "interactionCode":"CREAETEUSER"}, "requestBody" : {"user_mail" : "test@gmail.com", "password" : "12345678", "user_name" : "test" }}
+		$arr = array(
+			"requestHeader" => array("serviceId" => "111", "interactionCode" => "CREAETEUSER"), 
+			"requestBody" => array("user_mail" => "test@gmail.com", "password" => "aaa", "user_name" => "jhsd")
+		);
+
+		$json_request = json_encode($arr);
+
 		CreateUser($json_request);
 		break;
 	case 'UPDATEPROFILE':
