@@ -11,7 +11,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <script>
-    $(document).ready(function() {});
+    $(document).ready(function() {
+        var endpoint = 'get_login.php';
+
+        $.ajax({
+            url: endpoint,
+            contentType: "application/json",
+            dataType: 'json',
+            cache: false,
+            success: function(result) {
+                console.log(result);
+
+                if (result > 0) {
+                    $(".user-prompt").hide();
+                    $(".menu-items").show();
+                } else {
+                    $(".user-prompt").show();
+                    $(".menu-items").hide();
+                }
+            },
+            error: function(data, err) {
+                console.log(err);
+                //alert(JSON.stringify(data));
+                //alert(JSON.stringify(err));
+            }
+        });
+    });
 
     function login() {
         var username = $('#txtUsername').val();
@@ -47,18 +72,21 @@
 </header>
 
 <body>
-    <input type="text" id="txtUsername" placeholder="שם משתמש">
-    </input>
-    </br>
-    <input type="text" id="txtPassword" placeholder="סיסמה">
-    </input>
-    </br>
-    <button class="btn-div" type="button" id="btnAddBook" onclick="return login();">
+    <div class="user-prompt">
+        <input type="text" id="txtUsername" placeholder="שם משתמש">
+        </input>
+        </br>
+        <input type="text" id="txtPassword" placeholder="סיסמה">
+        </input>
+        </br>
+        <button class="btn-div" type="button" id="btnAddBook" onclick="return login();">
         כניסה למערכת
     </button>
-    <br>
-    <a href=users-listing.html>לרשימת משתמשים לחץ כאן</a><br>
-    <a href=books-listing.html>לרשימת ספרים לחץ כאן</a>
+    </div>
+    <div class="menu-items">
+        <a href=users-listing.html>לרשימת משתמשים לחץ כאן</a><br>
+        <a href=books-listing.html>לרשימת ספרים לחץ כאן</a>
+    </div>
 </body>
 
 </html>

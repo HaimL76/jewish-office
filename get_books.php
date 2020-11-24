@@ -18,7 +18,7 @@
 
         $sql = "select * from ta_book order by name";
         
-        if (isset($bookid) && $bookid != "") {
+        if (isset($bookid) && $bookid > 0) {
             //echo $bookid;
             $sql = $sql . "where id=" . $bookid;
         }

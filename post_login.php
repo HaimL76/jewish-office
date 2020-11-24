@@ -1,4 +1,5 @@
 <?php
+    session_start();
     //require_once 'users_api.php';
     require_once 'connection.php';
 
@@ -42,6 +43,8 @@
   
             if (!$result)
                 die($conn->error);
+
+            $userid = $_SESSION["uid"] = $conn->insert_id;
         }
     }
 
