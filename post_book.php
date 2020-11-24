@@ -26,7 +26,7 @@
           $result = $conn->query($sql);
   
           if (!$result)
-            echo $conn->error;
+            die($conn->error);
   
           $conn->close();
       }

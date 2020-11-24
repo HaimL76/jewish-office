@@ -62,6 +62,11 @@ include '../qa-api/include/log-off.php';//
 
 	$interactionCode = 'CREAETEUSER';
 
+	$arr = array(
+		"requestHeader" => array("serviceId" => "111", "interactionCode" => $interactionCode)//, 
+		//"requestBody" => array("user_mail" => "test@gmail.com", "password" => "aaa", "user_name" => "jhsd")
+	);
+
 switch ($interactionCode) {
 	case 'LOGOFF':
 		LogOff($json_request);
