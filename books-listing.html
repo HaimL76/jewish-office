@@ -105,8 +105,17 @@
         });
     });
 
-    function intGetBooks() {
-        var endpoint = 'get_books.php?uid=1';
+    async function intGetBooks() {
+        var endpoint = 'get_login.php';
+
+        const userid = await $.ajax({
+            url: endpoint,
+            contentType: "application/json",
+            dataType: 'json',
+            cache: false
+        });
+
+        endpoint = 'get_books.php?uid=' + userid.toString();
 
         $.ajax({
             url: endpoint,

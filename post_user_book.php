@@ -1,4 +1,12 @@
 <?php
+    session_start();
+
+    if (isset($_SESSION['uid']) && !empty($_SESSION['uid'])) {
+        $uid = $_SESSION['uid'];
+    } else {
+        die ("invalid session user id");
+    }
+
     require_once 'connection.php';
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') 
@@ -11,8 +19,8 @@
     
     header("Content-Type:application/json");
 
-      $uid = $_POST["uid"];//$sys_id];
-      $bid = $_POST["bid"];//$name];
+      //$uid = $_POST["uid"];//$sys_id];
+      $bid = $_POST["bid"];
 
       //echo $sysid;
       //echo $name;
@@ -25,7 +33,7 @@
   
           //echo json_encode($conn);
   
-          $sql = "insert into ta_user_book (uid, bid, achievements) values ({$uid}, {$bid}, 1)";
+          $sql = "insert into ta_user_book (uid, bid, achievements) values ({$uid}, {$bid}, {$uid})";
           
           //echo $sql;
 

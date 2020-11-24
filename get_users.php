@@ -11,15 +11,12 @@
 
         $conn = openConnection();
         
-        if ($conn == null)// || $conn.empty())
+        if (!isset($conn))
             die("Connection object is invalid");
-
-        //echo json_encode($conn);
 
         $sql = "select * from ta_user ";
         
-        if (isset($userid) && $userid != "") {
-            //echo $userid;
+        if (isset($userid) && $userid > 0) {
             $sql = $sql . "where id=" . $userid;
         }
 
@@ -31,13 +28,11 @@
 
         if ($result_get_user) {
             while ($row = $result_get_user->fetch_assoc()) {
-                //echo json_encode($row) . PHP_EOL;
                 $data_get_user[] = $row;
             }
 
             echo json_encode($data_get_user);
         }
 
-        //echo "Hello, World!";// $data_get_user;
         $conn->close();
 ?>
