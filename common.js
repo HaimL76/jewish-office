@@ -14,6 +14,7 @@ function logout() {
         .always(function() {
             //alert("finished");
             //initBook();
-            location.reload();
+            //location.reload();
+            window.location.href = "index.html";
         });
 }

@@ -41,7 +41,7 @@
                                         if ('id' in b && 'name' in b) {
                                             str = '<option id=' + b.id.toString() + '>';
                                             str += b.name;
-                                            str += '</a></option>';
+                                            str += '</option>';
 
                                             $('#books option:last').after(str);
                                         }
@@ -116,7 +116,7 @@
             cache: false
         });
 
-        endpoint = 'get_books.php?uid=' + userid.toString();
+        endpoint = 'backend/get_books.php?uid=' + userid.toString();
 
         $.ajax({
             url: endpoint,
@@ -161,7 +161,7 @@
                         if ('id' in book && 'category' in book && 'name' in book) {
                             str = '<option id=' + book.id.toString() + '>';
                             str += book.name;
-                            str += '</a></option>';
+                            str += '</option>';
 
                             $('#int-books option:last').after(str);
                         }
@@ -192,7 +192,7 @@
                         if ('ID' in cat && 'name' in cat) {
                             str = '<option id=' + cat.ID.toString() + '>';
                             str += cat.name;
-                            str += '</a></option>';
+                            str += '</option>';
 
                             $('#categories option:last').after(str);
                         }
