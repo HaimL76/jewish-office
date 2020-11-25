@@ -1,4 +1,12 @@
 <?php
+    session_start();
+
+    if (isset($_SESSION['uid']) && !empty($_SESSION['uid'])) {
+        $uid = $_SESSION['uid'];
+    } else {
+        die ("invalid session user id");
+    }
+    
     require_once 'connection.php';
     
     header("Content-Type:application/json");

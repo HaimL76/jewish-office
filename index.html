@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="uni-scholars.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="common.js"></script>
 </head>
 <script>
     $(document).ready(function() {
@@ -63,26 +64,6 @@
                     location.reload();
                 });
         }
-    }
-
-    function logout() {
-        var endpoint = 'backend/reset_login.php';
-
-        var jqxhr = $.post(endpoint,
-                function() {
-                    //alert("success");
-                })
-            .done(function() {
-                //alert("second success");
-            })
-            .fail(function(err) {
-                //alert(JSON.stringify(err));
-            })
-            .always(function() {
-                //alert("finished");
-                //initBook();
-                location.reload();
-            });
     }
 </script>
 <header id="masthead" class="site-header grid-container grid-parent" itemtype="https://schema.org/WPHeader" itemscope="">
