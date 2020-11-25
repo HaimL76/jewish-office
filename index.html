@@ -12,7 +12,7 @@
 </head>
 <script>
     $(document).ready(function() {
-        var endpoint = 'get_login.php';
+        var endpoint = 'backend/get_login.php';
 
         $.ajax({
             url: endpoint,
@@ -43,7 +43,7 @@
         var password = $('#txtPassword').val();
 
         if (username && password) {
-            var endpoint = 'post_login.php';
+            var endpoint = 'backend/post_login.php';
 
             var jqxhr = $.post(endpoint, {
                     usr: username,
@@ -66,7 +66,7 @@
     }
 
     function logout() {
-        var endpoint = 'reset_login.php';
+        var endpoint = 'backend/reset_login.php';
 
         var jqxhr = $.post(endpoint,
                 function() {

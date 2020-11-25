@@ -106,7 +106,7 @@
     });
 
     async function intGetBooks() {
-        var endpoint = 'get_login.php';
+        var endpoint = 'backend/get_login.php';
 
         const userid = await $.ajax({
             url: endpoint,
@@ -145,7 +145,7 @@
             }
         });
 
-        endpoint = 'get_books.php';
+        endpoint = 'backend/get_books.php';
 
         $.ajax({
             url: endpoint,
@@ -232,7 +232,7 @@
             bookid = optBook.id;
 
             if (bookid > 0) {
-                var endpoint = 'post_user_book.php';
+                var endpoint = 'backend/post_user_book.php';
 
                 var jqxhr = $.post(endpoint, {
                         uid: 1, //userid,
@@ -287,7 +287,7 @@
         }
 
         if (catid > 0 && bookid > 0 && bname && bunits > 0) {
-            var endpoint = 'post_book.php';
+            var endpoint = 'backend/post_book.php';
 
             var jqxhr = $.post(endpoint, {
                     sys_id: bookid,
