@@ -29,12 +29,27 @@
                         if ('id' in u) {
                             var str = '<tr>';
 
+                            var disp;
+
+                            if ('first' in u)
+                                disp = u.first;
+
+                            if ('last' in u) {
+                                if (disp && u.last)
+                                    disp += ' ';
+
+                                disp += u.last;
+                            }
+
+                            if (!disp && 'username' in u)
+                                disp = u.username;
+
                             //str += '<td>' + u.id + '</td>';
 
-                            if ('first' in u && 'last' in u) {
+                            if (disp) {
                                 str += '<td>';
                                 str += '<a href=user-details.html?user_id=' + u.id.toString() + '>';
-                                str += u.first + ' ' + u.last;
+                                str += disp;
                                 str += '</a></td>';
                             }
 
