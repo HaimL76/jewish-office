@@ -64,6 +64,26 @@
                 });
         }
     }
+
+    function logout() {
+        var endpoint = 'reset_login.php';
+
+        var jqxhr = $.post(endpoint,
+                function() {
+                    //alert("success");
+                })
+            .done(function() {
+                //alert("second success");
+            })
+            .fail(function(err) {
+                //alert(JSON.stringify(err));
+            })
+            .always(function() {
+                //alert("finished");
+                //initBook();
+                location.reload();
+            });
+    }
 </script>
 <header id="masthead" class="site-header grid-container grid-parent" itemtype="https://schema.org/WPHeader" itemscope="">
     <div class="inside-header grid-container grid-parent uni-scholars-header">
@@ -87,6 +107,8 @@
         <a href=users-listing.html>לרשימת משתמשים לחץ כאן</a><br>
         <a href=books-listing.html>לרשימת ספרים לחץ כאן</a>
     </div>
-</body>
+    <button class="btn-div" type="button" id="btnExit" onclick="return logout();">
+        יציאה מהמערכת
+        </button>
 
 </html>
