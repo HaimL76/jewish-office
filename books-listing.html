@@ -135,6 +135,10 @@
             }
         }
 
+        if (urluid > 0) {
+            $('.inner-headline h2')[0].innerHTML = 'רשימת הספרים של ' + urluid.toString();
+        }
+
         var endpoint = 'backend/get_login.php';
 
         const sessuid = await $.ajax({
@@ -144,7 +148,7 @@
             cache: false
         });
 
-        endpoint = 'backend/get_books.php'; //?uid=' + (urluid || sessuid).toString();
+        endpoint = 'backend/get_books.php';
 
         if (urluid > 0)
             endpoint += '?uid=' + urluid.toString();
@@ -352,7 +356,9 @@
         </div>
     </header>
     <div class="div-int-books">
-        <h2>רשימת הספרים שלך</h2>
+        <div class="inner-headline">
+            <h2>רשימת ספרים</h2>
+        </div>
         <table>
             <tr></tr>
         </table>
