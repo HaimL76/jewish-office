@@ -168,6 +168,9 @@
         if (urluid > 0)
             endpoint += '?uid=' + urluid.toString();
 
+        if (urluid != sessuid)
+            $('.books-input').hide();
+
         $.ajax({
             url: endpoint,
             contentType: "application/json",
@@ -376,45 +379,47 @@
         <table>
             <tr></tr>
         </table>
-        <h2>בחר ספר ממאגר הספרים</h2>
-        <!--
+        <div class='books-input'>
+            <h2>בחר ספר ממאגר הספרים</h2>
+            <!--
         <select id="int-categories" dir="rtl">
             <option>בחר קטגוריה</option>
         </select>
         <br>-->
-        <select id="int-books" dir="rtl">
+            <select id="int-books" dir="rtl">
             <option>בחר ספר</option>
         </select>
-        </br>
-        <input type="number" id="txtAchievments" required placeholder="1" min="1" pattern="\d*">
-        </input>
-        </br>
-        <button class="btn-div" type="button" id="intbtnAddBook" onclick="return intaddBook();">
+            </br>
+            <input type="number" id="txtAchievments" required placeholder="1" min="1" pattern="\d*">
+            </input>
+            </br>
+            <button class="btn-div" type="button" id="intbtnAddBook" onclick="return intaddBook();">
             הוסף לרשימתך
         </button>
-        <button class="btn-div" type="button" id="btnSearchBook" onclick="return searchBook();">
+            <button class="btn-div" type="button" id="btnSearchBook" onclick="return searchBook();">
             חפש ספר
         </button>
-    </div>
-    <div class="div-ext-books">
-        <h2>בחר ספר ממאגר האופיס היהודי</h2>
-        <select id="categories" dir="rtl">
+        </div>
+        <div class="div-ext-books">
+            <h2>בחר ספר ממאגר האופיס היהודי</h2>
+            <select id="categories" dir="rtl">
             <option>בחר קטגוריה</option>
         </select>
-        <br>
-        <select id="books" dir="rtl">
+            <br>
+            <select id="books" dir="rtl">
             <option>בחר ספר</option>
         </select>
-        <br>
-        <input type="number" id="txtUnits" required placeholder="1" min="1" pattern="\d*">
-        </input>
-        </br>
-        <input type="text" id="txtDescription" placeholder="פרטי ספר">
-        </input>
-        </br>
-        <button class="btn-div" type="button" id="btnAddBook" onclick="return addBook();">
+            <br>
+            <input type="number" id="txtUnits" required placeholder="1" min="1" pattern="\d*">
+            </input>
+            </br>
+            <input type="text" id="txtDescription" placeholder="פרטי ספר">
+            </input>
+            </br>
+            <button class="btn-div" type="button" id="btnAddBook" onclick="return addBook();">
             הוסף ספר
         </button>
+        </div>
     </div>
     <button class="btn-div" type="button" id="btnExit" onclick="return mainMenu();">
         תפריט ראשי
