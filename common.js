@@ -1,4 +1,4 @@
-function logout() {
+function myLogout() {
     var endpoint = 'backend/reset_login.php';
 
     var jqxhr = $.post(endpoint,
@@ -17,4 +17,8 @@ function logout() {
             //location.reload();
             window.location.href = "index.html";
         });
+}
+
+function mainMenu() {
+    window.location.href = "index.html";
 }
