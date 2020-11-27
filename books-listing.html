@@ -141,9 +141,8 @@
     async function intGetBooks() {
         var urluid = getUserFromUrl();
 
-        if (urluid > 0) {
+        if (urluid > 0)
             $('.inner-headline h2')[0].innerHTML = 'רשימת הספרים של ' + urluid.toString();
-        }
 
         var endpoint = 'backend/get_login.php';
 
@@ -155,6 +154,9 @@
         });
 
         if (sessuid > 0) {
+            if (urluid == sessuid)
+                $('.inner-headline h2')[0].innerHTML = 'רשימת הספרים שלך ';
+
             var str = $('.inside-header.grid-container h1')[0].innerHTML;
 
             if (str)
