@@ -163,7 +163,7 @@
             $('.inside-header.grid-container h1')[0].innerHTML = str;
         }
 
-        endpoint = 'backend/get_books.php';
+        endpoint = 'backend/get_user_books.php';
 
         if (urluid > 0)
             endpoint += '?uid=' + urluid.toString();
@@ -277,18 +277,15 @@
         var achievements;
         var bookid;
 
-        var urluid = getUserFromUrl();
-
         var optBook = $('#int-books option:selected')[0];
 
-        if ('id' in optBook && urluid > 0) {
+        if ('id' in optBook) {
             bookid = optBook.id;
 
             if (bookid > 0) {
                 var endpoint = 'backend/post_user_book.php';
 
                 var jqxhr = $.post(endpoint, {
-                        uid: urluid,
                         bid: bookid
                     }, function() {
                         //alert("success");
