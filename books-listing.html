@@ -107,16 +107,32 @@
     });
 
     async function intGetBooks() {
+        var urluid;
+
+        var arr = location.search.split('?');
+
+        if (Array.isArray(arr) && arr.length > 1 && arr[1]) {
+            arr = arr[1].split('=');
+
+            if (Array.isArray(arr) && arr.length > 1 && arr[1]) {
+                try {
+                    urluid = parseInt(arr[1]);
+                } catch (err) {
+
+                }
+            }
+        }
+
         var endpoint = 'backend/get_login.php';
 
-        const userid = await $.ajax({
+        const sessuid = await $.ajax({
             url: endpoint,
             contentType: "application/json",
             dataType: 'json',
             cache: false
         });
 
-        endpoint = 'backend/get_books.php?uid=' + userid.toString();
+        endpoint = 'backend/get_books.php'; //?uid=' + (urluid || sessuid).toString();
 
         $.ajax({
             url: endpoint,
