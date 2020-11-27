@@ -154,7 +154,7 @@
         });
 
         if (sessuid > 0) {
-            if (urluid == sessuid)
+            if (!urluid || urluid == sessuid)
                 $('.inner-headline h2')[0].innerHTML = 'רשימת הספרים שלך ';
 
             var str = $('.inside-header.grid-container h1')[0].innerHTML;
@@ -185,7 +185,9 @@
                     result.forEach(book => {
                         if ('id' in book && 'category' in book && 'name' in book) {
                             str = '<tr>';
-                            str += '<td>' + book.name + '</td>';
+                            str += '<td>';
+                            str += "<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return mainMenu();\">מחק</button>";
+                            str += book.name + '</td>';
                             //str += '</a></option>';
                             str += '</tr>';
 
