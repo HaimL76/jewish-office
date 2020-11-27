@@ -118,7 +118,7 @@
         });
     }
 
-    async function intGetBooks() {
+    function getUserFromUrl() {
         var urluid;
 
         var arr = location.search.split('?');
@@ -135,6 +135,12 @@
             }
         }
 
+        return urluid;
+    }
+
+    async function intGetBooks() {
+        var urluid = getUserFromUrl();
+
         if (urluid > 0) {
             $('.inner-headline h2')[0].innerHTML = 'רשימת הספרים של ' + urluid.toString();
         }
@@ -147,6 +153,15 @@
             dataType: 'json',
             cache: false
         });
+
+        if (sessuid > 0) {
+            var str = $('.inside-header.grid-container h1')[0].innerHTML;
+
+            if (str)
+                str += ' - ' + sessuid.toString();
+
+            $('.inside-header.grid-container h1')[0].innerHTML = str;
+        }
 
         endpoint = 'backend/get_books.php';
 
@@ -262,16 +277,18 @@
         var achievements;
         var bookid;
 
+        var urluid = getUserFromUrl();
+
         var optBook = $('#int-books option:selected')[0];
 
-        if ('id' in optBook) {
+        if ('id' in optBook && urluid > 0) {
             bookid = optBook.id;
 
             if (bookid > 0) {
                 var endpoint = 'backend/post_user_book.php';
 
                 var jqxhr = $.post(endpoint, {
-                        uid: 1, //userid,
+                        uid: urluid,
                         bid: bookid
                     }, function() {
                         //alert("success");

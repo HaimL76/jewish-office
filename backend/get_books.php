@@ -11,47 +11,48 @@
     
     header("Content-Type:application/json");
 
-    $book_id = 'book_id';
-    $uid = 'uid';
+    if (isset($_GET['book_id']) && !empty($_GET['book_id'])) {
+        $bookid = $_GET['book_id'];
 
-    $bookid = $_GET[$book_id];
-    $userid = $_GET[$uid];
+    if (isset($_GET['uid']) && !empty($_GET['uid'])) {
+        $userid = $_GET['uid'];
 
-        $conn = openConnection();
+    $conn = openConnection();
         
-        if ($conn == null)// || $conn.empty())
-            die("Connection object is invalid");
+    if ($conn == null)// || $conn.empty())
+        die("Connection object is invalid");
 
         //echo json_encode($conn);
 
-        $sql = "select * from ta_book order by name";
+    $sql = "select * from ta_book order by name";
         
-        if (isset($bookid) && $bookid > 0) {
+    if (isset($bookid) && $bookid > 0) {
             //echo $bookid;
-            $sql = $sql . "where id=" . $bookid;
-        }
+        $sql = $sql . "where id=" . $bookid;
+    }
 
-        if (isset($userid) && $userid > 0) {
+    if (isset($userid) && $userid > 0) {
             //echo $bookid;
-            $sql = "select * from ta_book inner join ta_user_book on ta_book.id = ta_user_book.bid ";
-            $sql = $sql . " where ta_user_book.uid = " . $userid;
-        }
+        $sql = "select * from ta_book inner join ta_user_book on ta_book.id = ta_user_book.bid ";
+        $sql = $sql . " where ta_user_book.uid = " . $userid;
+    }
 
-        $sql = $sql . ";";
+    $sql = $sql . ";";
 
-        error_log($sql . PHP_EOL);
+    error_log($sql . PHP_EOL);
 
-        $result_get_book = $conn->query($sql);
+    $result_get_book = $conn->query($sql);
 
-        if ($result_get_book) {
-            while ($row = $result_get_book->fetch_assoc()) {
+    if ($result_get_book) {
+        while ($row = $result_get_book->fetch_assoc()) {
             //echo json_encode($row) . PHP_EOL;
-                $data_get_book[] = $row;
-            }
-
-            echo json_encode($data_get_book);
+            $data_get_book[] = $row;
         }
 
-        //echo "Hello, World!";// $data_get_book;
-        $conn->close();
+        if (isset($data_get_book))
+            echo json_encode($data_get_book);
+    }
+
+    //echo "Hello, World!";// $data_get_book;
+    $conn->close();
 ?>
