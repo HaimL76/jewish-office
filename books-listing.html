@@ -132,7 +132,7 @@
 
         if (user_books)
             $('.myBar').each(function() {
-                move($(this)[0]);
+                move($(this)[0], user_books);
             });
     }
 
@@ -195,7 +195,7 @@
         }
     }
 
-    function move(elem) {
+    function move(elem, user_books) {
         if ('id' in elem) {
             var id = elem.id;
 
@@ -210,16 +210,18 @@
 
                 }
 
-                var width = 1;
-                var id = setInterval(frame, 10);
+                if (bookid > 0 && bookid in user_books && user_books[bookid]) {
+                    var width = 1;
+                    var id = setInterval(frame, 10);
 
-                function frame() {
-                    if (width >= 100) {
-                        clearInterval(id);
-                        i = 0;
-                    } else {
-                        width++;
-                        elem.style.width = width + "%";
+                    function frame() {
+                        if (width >= 100) {
+                            clearInterval(id);
+                            i = 0;
+                        } else {
+                            width++;
+                            elem.style.width = width + "%";
+                        }
                     }
                 }
             }
@@ -261,7 +263,7 @@
         if (urluid != sessuid)
             $('.books-input').hide();
 
-        var user_books;
+        var user_books = {};
 
         await $.ajax({
             url: endpoint,
@@ -271,11 +273,11 @@
             success: function(result) {
                 console.log(result);
 
-                if (Array.isArray(result)) {
-                    user_books = result;
-
+                if (Array.isArray(result))
                     result.forEach(book => {
-                        if ('id' in book && 'category' in book && 'name' in book) {
+                        if ('id' in book && 'category' in book && 'name' in book && book.id > 0) {
+                            user_books[book.id] = book;
+
                             str = '<tr>';
                             str += '<td>';
 
@@ -297,7 +299,6 @@
                             $('.div-int-books table tr:last').after(str);
                         }
                     });
-                }
             },
             error: function(data, err) {
                 console.log(err);
