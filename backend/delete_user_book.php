@@ -26,7 +26,9 @@
           if ($conn == null)// || $conn.empty())
               die("Connection object is invalid");
   
-          $sql = "delete from ta_book where bid = {$bookid} and uid = {$uid}";
+          $sql = "delete from ta_user_book where bid = {$bookid} and uid = {$uid}";
+
+          error_log($sql);
           
           $result = $conn->query($sql);
   
