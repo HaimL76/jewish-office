@@ -37,6 +37,8 @@
 
     if (isset($u_id) && $u_id > 0) {
         $sql = "select * from ta_book inner join ta_user_book on ta_book.id = ta_user_book.bid ";
+        //$sql = $sql . ", lateral (select uid from ta_achievements achiv ";
+        //$sql = $sql . " where achiv.uid = ta_user_book.uid and achiv.bid = ta_user_book.bid) as achiv_number ";
         $sql = $sql . " where ta_user_book.uid = " . $u_id;
         $sql = $sql . " order by name ";
     }
