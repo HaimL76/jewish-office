@@ -12,6 +12,24 @@
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" type="text/css" href="uni-scholars.css">
 </head>
+<style>
+    #myProgress {
+        width: 100%;
+        background-color: grey;
+    }
+    
+    #myBar {
+        width: 1%;
+        height: 30px;
+        background-color: green;
+    }
+    
+    .myBar {
+        width: 1%;
+        height: 30px;
+        background-color: green;
+    }
+</style>
 <script>
     $(document).ready(function() {
         initBook0();
@@ -108,11 +126,14 @@
     });
 
     async function initBook0() {
-        await initBook();
+        var user_books = await initBook();
 
-        $('.myBar').each(function() {
-            alert(JSON.stringify($(this)));
-        });
+        //alert(JSON.stringify(user_books));
+
+        if (user_books)
+            $('.myBar').each(function() {
+                move($(this)[0]);
+            });
     }
 
     function mainMenu() {
@@ -174,20 +195,32 @@
         }
     }
 
-    function move() {
-        if (i == 0) {
-            i = 1;
-            var elem = document.getElementById("myBar");
-            var width = 1;
-            var id = setInterval(frame, 10);
+    function move(elem) {
+        if ('id' in elem) {
+            var id = elem.id;
 
-            function frame() {
-                if (width >= 100) {
-                    clearInterval(id);
-                    i = 0;
-                } else {
-                    width++;
-                    elem.style.width = width + "%";
+            var arr = id.split('-');
+
+            if (Array.isArray(arr) && arr.length > 1 && arr[1]) {
+                var bookid;
+
+                try {
+                    bookid = parseInt(arr[1]);
+                } catch (err) {
+
+                }
+
+                var width = 1;
+                var id = setInterval(frame, 10);
+
+                function frame() {
+                    if (width >= 100) {
+                        clearInterval(id);
+                        i = 0;
+                    } else {
+                        width++;
+                        elem.style.width = width + "%";
+                    }
                 }
             }
         }
@@ -228,7 +261,9 @@
         if (urluid != sessuid)
             $('.books-input').hide();
 
-        $.ajax({
+        var user_books;
+
+        await $.ajax({
             url: endpoint,
             contentType: "application/json",
             dataType: 'json',
@@ -237,6 +272,8 @@
                 console.log(result);
 
                 if (Array.isArray(result)) {
+                    user_books = result;
+
                     result.forEach(book => {
                         if ('id' in book && 'category' in book && 'name' in book) {
                             str = '<tr>';
@@ -246,10 +283,11 @@
                                 str += '<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return delBook(' + book.id.toString() + ');\">מחק</button>';
 
                             str += book.name;
-                            //str += '</a></option>';
+                            str += '</td><td></td><td>';
+                            str += '</td><td style="width: 500px;">';
 
                             str += '<div id=\"myProgress\">';
-                            str += '<div class=\"myBar\"></div>';
+                            str += '<div id=\"myBar-' + book.id.toString() + '\" class=\"myBar\"></div>';
                             str += '</div>';
 
                             str += '</td>';
@@ -296,6 +334,8 @@
                 //alert(JSON.stringify(err));
             }
         });
+
+        return user_books;
     }
 
     function extGetBooks() {
@@ -335,7 +375,7 @@
 
         //$('.div-int-books').val("<option>בחר ספר</option>");
 
-        await intGetBooks();
+        return await intGetBooks();
     }
 
     function searchBook() {
