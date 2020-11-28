@@ -1,5 +1,8 @@
 .uni-scholars-header {
     background-color: aqua;
+}
+
+.uni-scholars-header h1 {
     padding-right: 25px;
 }
 
@@ -7,6 +10,7 @@
 .div-ext-books {
     padding-right: 25px;
     margin-right: 25px;
+    color: blueviolet;
 }
 
 input,

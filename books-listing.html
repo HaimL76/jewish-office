@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tora</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="uni-scholars.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="common.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="uni-scholars.css">
 </head>
 <script>
     $(document).ready(function() {
-        initBook();
+        initBook0();
 
         $('#categories').change(function() {
             var $sel = $('#categories option:selected');
@@ -106,6 +107,14 @@
         });
     });
 
+    async function initBook0() {
+        await initBook();
+
+        $('.myBar').each(function() {
+            alert(JSON.stringify($(this)));
+        });
+    }
+
     function mainMenu() {
         $.getScript('common.js', function() {
             mainMenu();
@@ -165,6 +174,25 @@
         }
     }
 
+    function move() {
+        if (i == 0) {
+            i = 1;
+            var elem = document.getElementById("myBar");
+            var width = 1;
+            var id = setInterval(frame, 10);
+
+            function frame() {
+                if (width >= 100) {
+                    clearInterval(id);
+                    i = 0;
+                } else {
+                    width++;
+                    elem.style.width = width + "%";
+                }
+            }
+        }
+    }
+
     async function intGetBooks() {
         var urluid = getUserFromUrl();
 
@@ -215,10 +243,17 @@
                             str += '<td>';
 
                             if (!urluid || urluid == sessuid)
-                                str += "<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return delBook(" + book.id.toString() + ");\">מחק</button>";
+                                str += '<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return delBook(' + book.id.toString() + ');\">מחק</button>';
 
-                            str += book.name + '</td>';
+                            str += book.name;
                             //str += '</a></option>';
+
+                            str += '<div id=\"myProgress\">';
+                            str += '<div class=\"myBar\"></div>';
+                            str += '</div>';
+
+                            str += '</td>';
+
                             str += '</tr>';
 
                             $('.div-int-books table tr:last').after(str);
@@ -294,13 +329,13 @@
         });
     }
 
-    function initBook() {
+    async function initBook() {
         $('.div-int-books').show();
         $('.div-ext-books').hide();
 
         //$('.div-int-books').val("<option>בחר ספר</option>");
 
-        intGetBooks();
+        await intGetBooks();
     }
 
     function searchBook() {
