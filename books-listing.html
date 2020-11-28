@@ -138,6 +138,33 @@
         return urluid;
     }
 
+    function delBook(bookid) {
+        if (bookid > 0) {
+            var result = confirm('האם אתה בטוח שברצונך למחוק את הספר?');
+
+            if (result) {
+                var endpoint = 'backend/delete_user_book.php';
+
+                var jqxhr = $.post(endpoint, {
+                        bid: bookid
+                    }, function() {
+                        //alert("success");
+                    })
+                    .done(function() {
+                        //alert("second success");
+                    })
+                    .fail(function(err) {
+                        //alert(JSON.stringify(err));
+                    })
+                    .always(function() {
+                        //alert("finished");
+                        //initBook();
+                        location.reload();
+                    });
+            }
+        }
+    }
+
     async function intGetBooks() {
         var urluid = getUserFromUrl();
 
@@ -186,7 +213,10 @@
                         if ('id' in book && 'category' in book && 'name' in book) {
                             str = '<tr>';
                             str += '<td>';
-                            str += "<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return mainMenu();\">מחק</button>";
+
+                            if (!urluid || urluid == sessuid)
+                                str += "<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return delBook(" + book.id.toString() + ");\">מחק</button>";
+
                             str += book.name + '</td>';
                             //str += '</a></option>';
                             str += '</tr>';
