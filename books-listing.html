@@ -262,7 +262,7 @@
         if (urluid > 0)
             endpoint += '?uid=' + urluid.toString();
 
-        if (urluid != sessuid)
+        if (urluid > 0 && urluid != sessuid)
             $('.books-input').hide();
 
         var user_books = {};
