@@ -267,9 +267,25 @@
             success: function(result) {
                 console.log(result);
 
+                var table = {};
+
                 if (Array.isArray(result))
                     result.forEach(book => {
                         if ('id' in book && 'category' in book && 'name' in book && book.id > 0) {
+                            var entry;
+
+                            if (book.id in table)
+                                entry = table[book.id];
+
+                            if (!entry)
+                                entry = table[book.id] = {
+                                    'book': book,
+                                    'count': 0
+                                };
+
+                            if ('count' in entry)
+                                entry.count++;
+
                             user_books[book.id] = book;
 
                             str = '<tr>';
