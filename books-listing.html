@@ -298,13 +298,15 @@
 
                         str += tuple.book.name;
                         str += '</td><td></td><td>';
-                        str += '</td><td style="width: 500px;">';
-
-                        str += '<div id=\"myProgress\">';
-                        str += '<div id=\"myBar-' + key.toString() + '\" class=\"myBar\"></div>';
-                        str += '</div>';
-
                         str += '</td>';
+
+                        if ('achievements' in tuple.book && tuple.book.achievements > 0) {
+                            str += '<td style="width: 500px;">';
+                            str += '<div id=\"myProgress\">';
+                            str += '<div id=\"myBar-' + key.toString() + '\" class=\"myBar\"></div>';
+                            str += '</div>';
+                            str += '</td>';
+                        }
 
                         str += '</tr>';
 
