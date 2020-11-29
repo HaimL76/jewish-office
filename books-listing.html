@@ -205,16 +205,24 @@
                 }
 
                 if (bookid > 0 && bookid in user_books && user_books[bookid]) {
-                    var width = 1;
-                    var id = setInterval(frame, 10);
+                    var tuple = user_books[bookid];
 
-                    function frame() {
-                        if (width >= 100) {
-                            clearInterval(id);
-                            i = 0;
-                        } else {
-                            width++;
-                            elem.style.width = width + "%";
+                    if ('count' in tuple && 'book' in tuple && 'achievements' in tuple.book && tuple.book.achievements > 0) {
+                        var percent = (tuple.count / tuple.book.achievements) * 100;
+
+                        if (percent > 0) {
+                            var width = 1;
+                            var id = setInterval(frame, 10);
+
+                            function frame() {
+                                if (width >= percent) {
+                                    clearInterval(id);
+                                    i = 0;
+                                } else {
+                                    width++;
+                                    elem.style.width = width + "%";
+                                }
+                            }
                         }
                     }
                 }
