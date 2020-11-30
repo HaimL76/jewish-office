@@ -45,7 +45,7 @@
         //$sql = $sql . ", lateral (select uid from ta_achievements achiv ";
         //$sql = $sql . " where achiv.uid = ta_user_book.uid and achiv.bid = ta_user_book.bid) as achiv_number ";
         $sql = $sql . " where ta_user_book.uid = " . $u_id;
-        $sql = $sql . " order by name ";
+        $sql = $sql . " order by ta_book.name ";
     }
 
     $sql = $sql . ";";
@@ -54,7 +54,7 @@
 
     $result_get_book = $conn->query($sql);
 
-    if ($result_get_book) {
+    if (isset($result_get_book)) {
         while ($row = $result_get_book->fetch_assoc()) 
             $data_get_book[] = $row;
 

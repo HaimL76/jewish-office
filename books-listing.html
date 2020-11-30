@@ -120,7 +120,13 @@
     });
 
     async function initBook0() {
-        var user_books = await initBook();
+        var user_books;
+
+        try {
+            user_books = await initBook();
+        } catch (err) {
+
+        }
 
         //alert(JSON.stringify(user_books));
 
@@ -319,7 +325,7 @@
                                     'count': 0
                                 };
 
-                            if ('count' in entry)
+                            if ('timestamp' in book && book.timestamp && 'count' in entry)
                                 entry.count++;
                         }
                     });
