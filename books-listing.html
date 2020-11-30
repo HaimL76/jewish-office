@@ -28,6 +28,8 @@
     $(document).ready(function() {
         initBook0();
 
+        intGetBooksList();
+
         $('#categories').change(function() {
             var $sel = $('#categories option:selected');
 
@@ -266,6 +268,37 @@
         }
     }
 
+    function intGetBooksList() {
+        endpoint = 'backend/get_books.php';
+
+        $.ajax({
+            url: endpoint,
+            contentType: "application/json",
+            dataType: 'json',
+            cache: false,
+            success: function(result) {
+                console.log(result);
+
+                if (Array.isArray(result)) {
+                    result.forEach(book => {
+                        if ('id' in book && 'category' in book && 'name' in book) {
+                            str = '<option id=' + book.id.toString() + '>';
+                            str += book.name;
+                            str += '</option>';
+
+                            $('#int-books option:last').after(str);
+                        }
+                    });
+                }
+            },
+            error: function(data, err) {
+                console.log(err);
+                //alert(JSON.stringify(data));
+                //alert(JSON.stringify(err));
+            }
+        });
+    }
+
     async function intGetBooks() {
         var urluid = getUserFromUrl();
 
@@ -357,35 +390,6 @@
                         $('.div-int-books table tr:last').after(str);
                     }
                 });
-            },
-            error: function(data, err) {
-                console.log(err);
-                //alert(JSON.stringify(data));
-                //alert(JSON.stringify(err));
-            }
-        });
-
-        endpoint = 'backend/get_books.php';
-
-        $.ajax({
-            url: endpoint,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            success: function(result) {
-                console.log(result);
-
-                if (Array.isArray(result)) {
-                    result.forEach(book => {
-                        if ('id' in book && 'category' in book && 'name' in book) {
-                            str = '<option id=' + book.id.toString() + '>';
-                            str += book.name;
-                            str += '</option>';
-
-                            $('#int-books option:last').after(str);
-                        }
-                    });
-                }
             },
             error: function(data, err) {
                 console.log(err);
