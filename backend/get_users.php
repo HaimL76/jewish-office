@@ -11,7 +11,7 @@
     
     header("Content-Type:application/json");
 
-    if (isset($_GET['uid']) && !empty($_GET['uid'])) {
+    if (isset($_GET['uid']) && !empty($_GET['uid'])) 
         $userid = $_GET['uid'];
 
     $conn = openConnection();

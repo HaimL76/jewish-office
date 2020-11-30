@@ -301,8 +301,10 @@
                         str = '<tr>';
                         str += '<td>';
 
-                        if (!urluid || urluid == sessuid)
+                        if (!urluid || urluid == sessuid) {
                             str += '<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return delBook(' + key.toString() + ');\">מחק</button>';
+                            str += '<button class=\"btn-div\" type=\"button\" id=\"btnAddAchiev\" onclick=\"return addAchieve(' + key.toString() + ');\">הוסף הישג</button>';
+                        }
 
                         str += tuple.book.name;
                         str += '</td><td></td><td>';
