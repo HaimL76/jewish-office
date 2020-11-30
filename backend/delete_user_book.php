@@ -28,6 +28,10 @@
   
           $sql = "delete from ta_user_book where bid = {$bookid} and uid = {$uid}";
 
+          $sql = "delete ta_user_book, ta_achievements from ta_user_book left outer join ta_achievements ";
+          $sql = $sql . " on ta_user_book.bid = ta_achievements.bid and ta_user_book.uid = ta_achievements.uid ";
+          $sql = $sql . " where ta_user_book.bid = {$bookid} and ta_user_book.uid = {$uid}";
+
           error_log($sql);
           
           $result = $conn->query($sql);
