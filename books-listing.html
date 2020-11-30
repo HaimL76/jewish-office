@@ -189,6 +189,36 @@
         }
     }
 
+    function addAchieve(bookid) {
+        if (bookid > 0) {
+            var message = 'הזן את ציונך:';
+
+            var grade = prompt(message, "60");
+
+            if (grade > 0) {
+                var endpoint = 'backend/add_achievement.php';
+
+                var jqxhr = $.post(endpoint, {
+                        bid: bookid,
+                        achieve: grade
+                    }, function() {
+                        //alert("success");
+                    })
+                    .done(function() {
+                        //alert("second success");
+                    })
+                    .fail(function(err) {
+                        //alert(JSON.stringify(err));
+                    })
+                    .always(function() {
+                        //alert("finished");
+                        //initBook();
+                        location.reload();
+                    });
+            }
+        }
+    }
+
     function move(elem, user_books) {
         if ('id' in elem) {
             var id = elem.id;
@@ -299,16 +329,11 @@
 
                     if ('book' in tuple && 'name' in tuple.book) {
                         str = '<tr>';
-                        str += '<td>';
 
-                        if (!urluid || urluid == sessuid) {
-                            str += '<button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return delBook(' + key.toString() + ');\">מחק</button>';
-                            str += '<button class=\"btn-div\" type=\"button\" id=\"btnAddAchiev\" onclick=\"return addAchieve(' + key.toString() + ');\">הוסף הישג</button>';
-                        }
+                        if (!urluid || urluid == sessuid)
+                            str += '<td><button class=\"btn-div\" type=\"button\" id=\"btnExit\" onclick=\"return delBook(' + key.toString() + ');\">מחק</button></td>';
 
-                        str += tuple.book.name;
-                        str += '</td><td></td><td>';
-                        str += '</td>';
+                        str += '<td>' + tuple.book.name + '</td>';
 
                         if ('achievements' in tuple.book && tuple.book.achievements > 0) {
                             str += '<td style="width: 500px;">';
@@ -317,6 +342,9 @@
                             str += '</div>';
                             str += '</td>';
                         }
+
+                        if (!urluid || urluid == sessuid)
+                            str += '<td><button class=\"btn-div\" type=\"button\" id=\"btnAddAchiev\" onclick=\"return addAchieve(' + key.toString() + ');\">הוסף הישג</button></td>';
 
                         str += '</tr>';
 
