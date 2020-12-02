@@ -65,6 +65,18 @@
                 });
         }
     }
+
+    function mainMenu() {
+        $.getScript('common.js', function() {
+            mainMenu();
+        });
+    }
+
+    function myLogout() {
+        $.getScript('common.js', function() {
+            myLogout();
+        });
+    }
 </script>
 <header id="masthead" class="site-header grid-container grid-parent" itemtype="https://schema.org/WPHeader" itemscope="">
     <div class="inside-header grid-container grid-parent uni-scholars-header">
@@ -88,7 +100,7 @@
         <a href=users-listing.html>לרשימת משתמשים לחץ כאן</a><br>
         <a href=books-listing.html>לרשימת ספרים לחץ כאן</a>
     </div>
-    <button class="btn-div" type="button" id="btnExit" onclick="return logout();">
+    <button class="btn-div" type="button" id="btnExit" onclick="return myLogout();">
         יציאה מהמערכת
         </button>
 
