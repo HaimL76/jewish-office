@@ -8,6 +8,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="common.js"></script>
+    <script src="vue.js"></script>
 
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" type="text/css" href="uni-scholars.css">
@@ -34,6 +35,13 @@
         initBook0();
 
         intGetBooksList();
+
+        var myObject = new Vue({
+            el: '.uni-scholars-header h1',
+            data: {
+                title: 'איגוד לומדים עצמאיים'
+            }
+        })
 
         $('#categories').change(function() {
             var $sel = $('#categories option:selected');
@@ -541,12 +549,16 @@
                 });
         }
     }
+
+    function myFunction() {
+        myObject.title = "John Doe";
+    }
 </script>
 
 <body>
     <header id="masthead" class="site-header grid-container grid-parent" itemtype="https://schema.org/WPHeader" itemscope="">
         <div class="inside-header grid-container grid-parent uni-scholars-header">
-            <h1>איגוד לומדים עצמאיים</h1>
+            <h1>{{ title }}</h1>
         </div>
     </header>
     <div class="div-int-books">
