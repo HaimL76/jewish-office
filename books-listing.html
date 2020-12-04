@@ -23,6 +23,11 @@
         height: 30px;
         background-color: green;
     }
+    
+    .buttons-grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
 </style>
 <script>
     $(document).ready(function() {
@@ -588,12 +593,20 @@
             הוסף ספר
             </button>
     </div>
-    <button class="btn-div" type="button" id="btnExit" onclick="return mainMenu();">
+    <div class="buttons-grid=container" style="display: grid; grid-template-columns: auto auto; width: 15em; margin-top: 3em;">
+        <button class="btn-div" type="button" id="btnExit" onclick="return mainMenu();" style="background-color: #434386;
+                font-weight: bold;
+                color: whitesmoke;
+                width: 8em;">
         תפריט ראשי
         </button>
-    <button class="btn-div" type="button" id="btnMenu" onclick="return myLogout();">
+        <button class="btn-div" type="button" id="btnMenu" onclick="return myLogout();" style="background-color: #434386;
+            font-weight: bold;
+            color: whitesmoke;
+            width: 8em;">
         יציאה מהמערכת
         </button>
+    </div>
 </body>
 
 </html>
