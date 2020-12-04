@@ -22,9 +22,9 @@
     $sql = "select * from ta_user ";
         
     if (isset($userid) && $userid > 0) 
-        $sql = $sql . "where id=" . $userid;
+        $sql .= "where id=" . $userid;
 
-    $sql = $sql . ";";
+    $sql .= ";";
 
     error_log($sql . PHP_EOL);
 

@@ -1,7 +1,7 @@
 <?php
-ob_start(); // begin collecting output
 
-include '../../qa-api/include/set_password.php';//
+
+//include '../../qa-api/include/set_password.php';//
 	// { "requestHeader": { "serviceId":"111", "interactionCode":"SETPASSWORD"}, "requesteBody" : {"user_id" : "1", "old_password" : "12345678", "new_password" : "87654321" }}
 
 	// 	Sample Output
@@ -9,7 +9,7 @@ include '../../qa-api/include/set_password.php';//
     //old password not valid
     //	{"responseHeader":{"serviceId":"111","status":"100"}}
 
-include '../../qa-api/include/reset_password.php';//
+//include '../../qa-api/include/reset_password.php';//
 	// { "requestHeader": { "serviceId":"111", "interactionCode":"RESETPASSWORD"}, "requesteBody" : {"mail" : "test@test.co.il"}}
 
 	// 	Sample Output
@@ -17,7 +17,7 @@ include '../../qa-api/include/reset_password.php';//
     //  mail not valid
     //	{"responseHeader":{"serviceId":"111","status":"100"}}
 
-include '../../qa-api/include/check-login.php';//
+//include '../../qa-api/include/check-login.php';//
 	// { "requestHeader": { "serviceId":"111", "interactionCode":"ISSUESGITHUBE"}, "responseBody" : {"user_mail" : "test@gmail.com", "password" : "12345678" }}
 
 	// 	Sample Output
@@ -27,7 +27,7 @@ include '../../qa-api/include/check-login.php';//
     //email envalid
     //	{"responseHeader":{"serviceId":"111","status":"110"}}
 
-include '../../qa-api/include/read-session-code.php';//
+//include '../../qa-api/include/read-session-code.php';//
 	// { "requestHeader": { "serviceId":"111", "interactionCode":"READSESSIONCODE"}, "responseBody" : {"user_id" : "3", "sessioncode" : "p0jec98k" }}
 
 	// 	Sample Output
@@ -35,7 +35,9 @@ include '../../qa-api/include/read-session-code.php';//
     //  not valid
     //	{"responseHeader":{"serviceId":"111","status":"100"}}
 
-include '../../qa-api/include/create-user.php';//
+	include_once '../../qa-api/include/create-user.php';//
+
+
 	// { "requestHeader": { "serviceId":"111", "interactionCode":"CREAETEUSER"}, "requestBody" : {"user_mail" : "test@gmail.com", "password" : "12345678", "user_name" : "test" }}
 
 	// 	Sample Output
@@ -43,72 +45,43 @@ include '../../qa-api/include/create-user.php';//
     //email exsist
     //	{"responseHeader":{"serviceId":"111","status":"100"}}
 
-include '../../qa-api/include/update-profile.php';//
+//include '../../qa-api/include/update-profile.php';//
 	// { "requestHeader": { "serviceId":"111", "interactionCode":"UPDATEPROFILE" }, "requestBody" : { "user_id" : "1", "email_id" : "anoop@helloinfinity.com", "about" : "somthing"} }
 
 	// 	Sample Output
 	// 	{"responseHeader":{"status":"200","serviceId":"111","message":"Updated!"}}
-include '../../qa-api/include/get-user.php';//
+//include '../../qa-api/include/get-user.php';//
 // { "requestHeader": { "serviceId":"111", "interactionCode":"GETUSERQUESTIONS", "user_id" : "1" }}
 
 // 	Sample Output
 //	{"responseHeader":{"serviceId":"111","status":"200"},"responseBody":{"name":"test", "email":"teset@test.com", "points":"120"}}
 
-include '../../qa-api/include/log-off.php';//
+//include '../../qa-api/include/log-off.php';//
 	// { "requestHeader": { "serviceId":"111", "interactionCode":"LOGOFF" }, "requestBody" : { "id" : "12" } }
 
 	//	Sample Output
 	//	{"responseHeader":{"serviceId":"111","status":"200"}}
 
-	function callUsersApi() {
-		$interactionCode = 'CREAETEUSER';
+	if (!function_exists('myCreateUser')) {
+		function myCreateUser($usr, $pwd) {
+			//ob_start();
 
-		switch ($interactionCode) {
-			case 'LOGOFF':
-				LogOff($json_request);
-				break;
-			case 'SETPASSWORD':
-				SetPassword($json_request);
-				break;
-			case 'RESETPASSWORD':
-				ResetPassword($json_request);
-				break;
-			case 'CHECKLOGIN':
-				ChackLogin($json_request);
-				break;
-			case 'READSESSIONCODE':
-				ReadSessionCode($json_request);
-				break;
-			case 'CREAETEUSER':
+			if (isset($usr) && !empty($usr) && isset($pwd) && !empty($pwd)) {
+				error_log($usr);
+				error_log($pwd);
 
 				$json = array("requestHeader" => array("serviceId" => "111", "interactionCode" => "CREAETEUSER"),
-					"requestBody" => array("user_mail" => "test@gmail.com", "password" => "12345678", "user_name" => "test"));
+				"requestBody" => array("user_mail" => "test@gmail.com", "password" => "12345678", "user_name" => "test"));
 
-				$json_request = json_encode($json);
+				$exists = function_exists('CreateUser');
 
-				error_log($json_request);
+				error_log($exists);
 
-				$result = CreateUser($json_request);
-
-				//if (isset($result) && !empty($result))
-					error_log($result);
-				break;
-			case 'UPDATEPROFILE':
-				updateprofile($json_request);
-				break;
-			case 'VIEWPROFILE':
-				view_profile($json_request);
-				break;
-			case 'GETUSERDETAILS':
-				get_user($json_request);
-				break;
-			default:
-				echo json_encode(array('responseHeader' => array(
-					"serviceId" => $serviceId,
-					"status" => "405",
-					"message" => "Method Not Allowed"
-				)));
-				break;
+				if ($exists)
+					$result = CreateUser($json);
+				
+				error_log($result ?? 'error CreateUser');
+			}
 		}
 	}
 ?>
