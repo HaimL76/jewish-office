@@ -17,3 +17,12 @@ input,
 select {
     width: 180px;
 }
+
+.main-menu {
+    position: relative;
+    top: inherit;
+    display: flex;
+    justify-content: space-evenly;
+    width: inherit;
+    height: inherit;
+}

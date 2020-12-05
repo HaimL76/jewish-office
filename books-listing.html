@@ -261,6 +261,8 @@
                     if ('count' in tuple && 'book' in tuple && 'achievements' in tuple.book && tuple.book.achievements > 0) {
                         var percent = (tuple.count / tuple.book.achievements) * 100;
 
+                        elem.innerHtml = percent;
+
                         if (percent > 0) {
                             var width = 1;
                             var id = setInterval(frame, 10);
@@ -393,6 +395,7 @@
                             str += '<div id=\"myBar-' + key.toString() + '\" class=\"myBar\"></div>';
                             str += '</div>';
                             str += '</td>';
+                            str += '<div id=\"myPercent-' + key.toString() + '\" class=\"myPercent\"></div>';
                         }
 
                         if (!urluid || urluid == sessuid)
