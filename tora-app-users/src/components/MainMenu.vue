@@ -1,7 +1,7 @@
 <template>
   <div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
+    <a class="active" href="#home">דף הבית</a>
+    <a href="#news">חידושי תורה</a>
     <a href="#contact">Contact</a>
     <a href="#about">About</a>
   </div>
