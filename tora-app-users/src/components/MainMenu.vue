@@ -4,6 +4,8 @@
     <a href="#news">חידושי תורה</a>
     <a href="#contact">Contact</a>
     <a href="#about">About</a>
+    <!--<router-link to='/'> Home</router-link>-->
+    <!--<router-link to='/contact'>Contact </router-link>-->
   </div>
 </template>
 
